@@ -29,7 +29,7 @@ libc = "0.2"
 clap = { version = "4.0", features = ["derive"] }
 is-terminal = "0.4"
 yaml-rust = "0.4"
-clipboard = "0.5"
+terminal-clipboard = "0.4"
 
 [dev-dependencies]
 indoc = "1.0"
