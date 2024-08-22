@@ -5,7 +5,6 @@ use std::io::Write;
 
 use clipboard::{ClipboardContext, ClipboardProvider};
 use rustyline::error::ReadlineError;
-use rustyline::Editor;
 use termion::event::Key;
 use termion::event::MouseButton::{Left, WheelDown, WheelUp};
 use termion::event::MouseEvent::Press;
@@ -126,8 +125,14 @@ impl App {
         let mut viewer = JsonViewer::new(flatjson, opt.mode);
         viewer.scrolloff_setting = opt.scrolloff;
 
+        let le_config = rustyline::Config::builder()
+            .behavior(rustyline::Behavior::PreferTerm)
+            .build();
+        let line_editor = rustyline::DefaultEditor::with_config(le_config)
+            .map_err(|e| format!("Failed to initialize line editor: {e}"))?;
+
         let screen_writer =
-            ScreenWriter::init(opt, stdout, Editor::<()>::new(), TTYDimensions::default());
+            ScreenWriter::init(opt, stdout, line_editor, TTYDimensions::default());
 
         Ok(App {
             viewer,
