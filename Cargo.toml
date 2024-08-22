@@ -32,4 +32,4 @@ yaml-rust = "0.4"
 terminal-clipboard = "0.4"
 
 [dev-dependencies]
-indoc = "1.0"
+indoc = "2.0"
